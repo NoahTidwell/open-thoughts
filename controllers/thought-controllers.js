@@ -1,10 +1,10 @@
-const { Thoughts, User } = require("../models");
+const { Thought, User } = require("../models");
 
 const thoughtController = {
     
   // Get all thoughts
   getAllThoughts(req, res) {
-    Thoughts.find({})
+    Thought.find({})
       .then((dbUserData) => res.json(dbUserData))
       .catch((err) => {
         console.log(err);
@@ -14,7 +14,7 @@ const thoughtController = {
 
   // Get thoughts by ID
   getThoughtsById({ params }, res) {
-    Thoughts.findOne({ _id: params.id })
+    Thought.findOne({ _id: params.id })
       .populate({
         path: "reactions",
         select: "-__v",
@@ -35,7 +35,7 @@ const thoughtController = {
 
   // Create new thought
   addThoughts({ params, body }, res) {
-    Thoughts.create(body)
+    Thought.create(body)
       .then(({ _id }) => {
         return User.findOneAndUpdate(
           { _id: params.userId },
@@ -57,7 +57,7 @@ const thoughtController = {
 
   // Update thought
   updateThoughts({ params, body }, res) {
-    Thoughts.findOneAndUpdate({ _id: params.id }, body, {
+    Thought.findOneAndUpdate({ _id: params.id }, body, {
       new: true,
       runValidators: true,
     })
@@ -78,7 +78,7 @@ const thoughtController = {
 
   // Create Reaction
   addReaction({ params, body }, res) {
-    Thoughts.findOneAndUpdate(
+    Thought.findOneAndUpdate(
       { _id: params.thoughtId },
       { $push: { reactions: body } },
       { new: true, runValidators: true }
@@ -100,7 +100,7 @@ const thoughtController = {
 
   // Find a thought and Delete
   deleteThoughts({ params }, res) {
-    Thoughts.findOneAndDelete({ _id: params.id })
+    Thought.findOneAndDelete({ _id: params.id })
       .then((dbThoughtData) => {
         if (!dbThoughtData) {
           res.status(404).json({ message: "No thought match with this ID" });
@@ -114,7 +114,7 @@ const thoughtController = {
   // Find reaction and delete
 
   deleteReaction({ params }, res) {
-    Thoughts.findOneAndUpdate(
+    Thought.findOneAndUpdate(
       { _id: params.thoughtId },
       { $pull: { reactions: { reactionId: params.reactionId } } },
       { new: true }
