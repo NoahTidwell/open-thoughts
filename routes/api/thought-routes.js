@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const thoughtController = require("../../controllers/thought-controller");
+const thoughtController = require("../../controllers/thought-controllers");
 
 const {
   getAllThoughts,
@@ -9,7 +9,7 @@ const {
   deleteThoughts,
   addReaction,
   deleteReaction,
-} = require("../../controllers/thought-controller");
+} = require("../../controllers/thought-controllers");
 
 //use api/thoughts
 
