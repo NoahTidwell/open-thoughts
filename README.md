@@ -1,4 +1,4 @@
-# Social-Networking-API
+# OPEN THOUGHTS (Social-Networking-API)
 
 ## Demo Link
 [Link](https://watch.screencastify.com/v/EEC4FBSWaBy9C04sE7cs)
